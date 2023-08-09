@@ -1,16 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { User } from './users/entities/user.entity';
-import { CompanyModule } from './company/company.module';
-import { Company } from './company/entities/company.entity';
-import { ProductModule } from './product/product.module';
-import { Product } from './product/entities/product.entity';
-import { CatgoriesModule } from './catgories/catgories.module';
-import { Catgory } from './catgories/entities/catgory.entity';
+import { TodosModule } from './todos/todos.module';
+import { Todo } from './todos/entities/todo.entity';
+import { CategoryModule } from './category/category.module';
+import { Category } from './category/entities/category.entity';
 
 @Module({
   imports: [
@@ -21,13 +17,11 @@ import { Catgory } from './catgories/entities/catgory.entity';
       username: 'root',
       password: 'Ngi@Admin/2022',
       database: 'nestjs',
-      entities: [User, Company, Product, Catgory],
+      entities: [Todo, Category],
       synchronize: true,
     }),
-    UsersModule,
-    CompanyModule,
-    ProductModule,
-    CatgoriesModule,
+    TodosModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
