@@ -16,7 +16,11 @@ export class TodosService {
   }
 
   async findAll() {
-    return await this.todoRepository.find();
+    const item = this.todoRepository
+      .createQueryBuilder('todo')
+      .leftJoinAndSelect('todo.category', 'category')
+      .getMany();
+    return await item;
   }
 
   async findOne(id: number) {

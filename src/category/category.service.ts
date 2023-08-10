@@ -17,7 +17,11 @@ export class CategoryService {
   }
 
   async findAll() {
-    return this.catRepository.find();
+    const item = await this.catRepository
+      .createQueryBuilder('category')
+      .leftJoinAndSelect('category.todos', 'todo')
+      .getMany();
+    return item;
   }
 
   async findOne(id: number) {

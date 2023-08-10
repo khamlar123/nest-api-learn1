@@ -2,6 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -15,7 +16,10 @@ export class Todo {
   @Column()
   title: string;
 
-  @OneToOne(() => Category, (category) => category.todos, {
+  @Column()
+  categoryId: number;
+
+  @ManyToOne(() => Category, (category) => category.todos, {
     onDelete: 'CASCADE',
   })
   @JoinColumn()
