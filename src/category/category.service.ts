@@ -13,26 +13,51 @@ export class CategoryService {
   ) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
-    return (await this.catRepository.save(createCategoryDto)).id;
+    try {
+      return (await this.catRepository.save(createCategoryDto)).id;
+    } catch (e) {
+      return e.message;
+    }
   }
 
   async findAll() {
-    const item = await this.catRepository
-      .createQueryBuilder('category')
-      .leftJoinAndSelect('category.todos', 'todo')
-      .getMany();
-    return item;
+    try {
+      const item = await this.catRepository
+        .createQueryBuilder('category')
+        .leftJoinAndSelect('category.todos', 'todo')
+        .getMany();
+      return item;
+    } catch (e) {
+      return e.message;
+    }
   }
 
   async findOne(id: number) {
-    return await this.catRepository.findBy({ id });
+    try {
+      const item = await this.catRepository
+        .createQueryBuilder('category')
+        .leftJoinAndSelect('category.todos', 'todo')
+        .where('category.id = :id', { id })
+        .getOne();
+      return item;
+    } catch (e) {
+      return e.message;
+    }
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return await this.catRepository.update(id, updateCategoryDto);
+    try {
+      return await this.catRepository.update(id, updateCategoryDto);
+    } catch (e) {
+      return e.message;
+    }
   }
 
   async remove(id: number) {
-    return await this.catRepository.delete(id);
+    try {
+      return await this.catRepository.delete(id);
+    } catch (e) {
+      return e.message;
+    }
   }
 }

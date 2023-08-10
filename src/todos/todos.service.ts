@@ -12,27 +12,53 @@ export class TodosService {
   ) {}
 
   async create(createTodoDto: CreateTodoDto) {
-    return await this.todoRepository.save(createTodoDto);
+    try {
+      return await this.todoRepository.save(createTodoDto);
+    } catch (e) {
+      return e.message;
+    }
   }
 
   async findAll() {
-    const item = this.todoRepository
-      .createQueryBuilder('todo')
-      .leftJoinAndSelect('todo.category', 'category')
-      .leftJoinAndSelect('todo.user', 'user')
-      .getMany();
-    return await item;
+    try {
+      const item = this.todoRepository
+        .createQueryBuilder('todo')
+        .leftJoinAndSelect('todo.category', 'category')
+        .leftJoinAndSelect('todo.user', 'user')
+        .getMany();
+      return await item;
+    } catch (e) {
+      return e.message;
+    }
   }
 
   async findOne(id: number) {
-    return await this.todoRepository.findBy({ id });
+    try {
+      const item = this.todoRepository
+        .createQueryBuilder('todo')
+        .leftJoinAndSelect('todo.category', 'category')
+        .leftJoinAndSelect('todo.user', 'user')
+        .where('todo.id = :id', { id })
+        .getOne();
+      return await item;
+    } catch (e) {
+      return e.message;
+    }
   }
 
   async update(id: number, updateTodoDto: UpdateTodoDto) {
-    return await this.todoRepository.update(id, updateTodoDto);
+    try {
+      return await this.todoRepository.update(id, updateTodoDto);
+    } catch (e) {
+      return e.message;
+    }
   }
 
   async remove(id: number) {
-    return await this.todoRepository.delete(id);
+    try {
+      return await this.todoRepository.delete(id);
+    } catch (e) {
+      return e.message;
+    }
   }
 }

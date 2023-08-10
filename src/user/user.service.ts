@@ -12,25 +12,51 @@ export class UserService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    return (await this.userRepository.save(createUserDto)).id;
+    try {
+      return (await this.userRepository.save(createUserDto)).id;
+    } catch (e) {
+      return e.message;
+    }
   }
 
-  findAll() {
-    return this.userRepository
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.todos', 'todo')
-      .getMany();
+  async findAll() {
+    try {
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .leftJoinAndSelect('user.todos', 'todo')
+        .getMany();
+    } catch (e) {
+      return e.message;
+    }
   }
 
-  findOne(id: number) {
-    return this.userRepository.findBy({ id });
+  async findOne(id: number) {
+    try {
+      return await this.userRepository
+        .createQueryBuilder('user')
+        .leftJoinAndSelect('user.todos', 'todo')
+        .where('user.id = :id', { id })
+        .getOne();
+    } catch (e) {
+      return e.message;
+    }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return this.userRepository.update(id, updateUserDto);
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    try {
+      const updateItem = await this.userRepository.update(id, updateUserDto);
+      return updateItem.affected > 0 ? 'update done !' : 'update error !';
+    } catch (e) {
+      return e.message;
+    }
   }
 
   async remove(id: number) {
-    return await this.userRepository.delete(id);
+    try {
+      const deleteItem = await this.userRepository.delete(id);
+      return deleteItem.affected > 0 ? 'delete done!' : 'error';
+    } catch (e) {
+      return e.message;
+    }
   }
 }
