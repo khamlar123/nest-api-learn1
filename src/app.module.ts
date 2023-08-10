@@ -9,6 +9,10 @@ import { CategoryModule } from './category/category.module';
 import { Category } from './category/entities/category.entity';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
+import { MenuModule } from './menu/menu.module';
+import { Menu } from './menu/entities/menu.entity';
+import { UserMenueModule } from './user-menue/user-menue.module';
+import { UserMenue } from './user-menue/entities/user-menue.entity';
 
 @Module({
   imports: [
@@ -19,12 +23,14 @@ import { User } from './user/entities/user.entity';
       username: 'root',
       password: 'Ngi@Admin/2022',
       database: 'nestjs',
-      entities: [Todo, Category, User],
+      entities: [Todo, Category, User, Menu, UserMenue],
       synchronize: true,
     }),
     TodosModule,
     CategoryModule,
     UserModule,
+    MenuModule,
+    UserMenueModule,
   ],
   controllers: [AppController],
   providers: [AppService],

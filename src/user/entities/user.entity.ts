@@ -1,4 +1,5 @@
 import { Todo } from 'src/todos/entities/todo.entity';
+import { UserMenue } from 'src/user-menue/entities/user-menue.entity';
 import {
   Column,
   CreateDateColumn,
@@ -25,6 +26,12 @@ export class User {
   @OneToMany(() => Todo, (todo) => todo.user)
   @JoinTable()
   todos: Todo[];
+
+  @OneToMany(() => UserMenue, (usermenue) => usermenue.user, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
+  userMenue: UserMenue;
 
   @CreateDateColumn({
     type: 'timestamp',
