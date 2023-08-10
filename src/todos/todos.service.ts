@@ -19,6 +19,7 @@ export class TodosService {
     const item = this.todoRepository
       .createQueryBuilder('todo')
       .leftJoinAndSelect('todo.category', 'category')
+      .leftJoinAndSelect('todo.user', 'user')
       .getMany();
     return await item;
   }

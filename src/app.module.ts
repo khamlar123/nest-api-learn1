@@ -7,6 +7,8 @@ import { TodosModule } from './todos/todos.module';
 import { Todo } from './todos/entities/todo.entity';
 import { CategoryModule } from './category/category.module';
 import { Category } from './category/entities/category.entity';
+import { UserModule } from './user/user.module';
+import { User } from './user/entities/user.entity';
 
 @Module({
   imports: [
@@ -17,11 +19,12 @@ import { Category } from './category/entities/category.entity';
       username: 'root',
       password: 'Ngi@Admin/2022',
       database: 'nestjs',
-      entities: [Todo, Category],
+      entities: [Todo, Category, User],
       synchronize: true,
     }),
     TodosModule,
     CategoryModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
