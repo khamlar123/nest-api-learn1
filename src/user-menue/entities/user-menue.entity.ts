@@ -13,13 +13,11 @@ import {
 export class UserMenue {
   @PrimaryGeneratedColumn()
   id: number;
-
   @Column()
   userId: number;
   @ManyToOne(() => User, (user) => user.userMenue)
   @JoinColumn()
   user: User;
-
   @Column()
   menuId: number;
   @ManyToOne(() => Menu, (menu) => menu.userMenue)

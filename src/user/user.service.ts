@@ -24,6 +24,7 @@ export class UserService {
       return await this.userRepository
         .createQueryBuilder('user')
         .leftJoinAndSelect('user.todos', 'todo')
+        .leftJoinAndSelect('user.userMenue', 'userMenue')
         .getMany();
     } catch (e) {
       return e.message;
@@ -35,6 +36,7 @@ export class UserService {
       return await this.userRepository
         .createQueryBuilder('user')
         .leftJoinAndSelect('user.todos', 'todo')
+        .leftJoinAndSelect('user.userMenue', 'userMenue')
         .where('user.id = :id', { id })
         .getOne();
     } catch (e) {

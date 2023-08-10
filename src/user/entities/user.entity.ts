@@ -6,7 +6,6 @@ import {
   Entity,
   JoinColumn,
   JoinTable,
-  ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
