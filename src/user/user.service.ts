@@ -21,11 +21,9 @@ export class UserService {
 
   async findAll() {
     try {
-      return await this.userRepository
-        .createQueryBuilder('user')
-        .leftJoinAndSelect('user.todos', 'todo')
-        .leftJoinAndSelect('user.userMenue', 'userMenue')
-        .getMany();
+      return this.userRepository.find({
+        relations: { todos: true, userMenue: { menu: true } },
+      });
     } catch (e) {
       return e.message;
     }
@@ -33,12 +31,10 @@ export class UserService {
 
   async findOne(id: number) {
     try {
-      return await this.userRepository
-        .createQueryBuilder('user')
-        .leftJoinAndSelect('user.todos', 'todo')
-        .leftJoinAndSelect('user.userMenue', 'userMenue')
-        .where('user.id = :id', { id })
-        .getOne();
+      return this.userRepository.findOne({
+        where: { id },
+        relations: { todos: true, userMenue: { menu: true } },
+      });
     } catch (e) {
       return e.message;
     }

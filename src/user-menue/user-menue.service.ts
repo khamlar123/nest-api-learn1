@@ -21,12 +21,20 @@ export class UserMenueService {
   }
 
   findAll() {
+    // try {
+    //   return this.userMenuRepository
+    //     .createQueryBuilder('userMenue')
+    //     .leftJoinAndSelect('userMenue.user', 'user')
+    //     .leftJoinAndSelect('userMenue.menu', 'menu')
+    //     .getMany();
+    // } catch (e) {
+    //   return e.message;
+    // }
+
     try {
-      return this.userMenuRepository
-        .createQueryBuilder('userMenue')
-        .leftJoinAndSelect('userMenue.user', 'user')
-        .leftJoinAndSelect('userMenue.menu', 'menu')
-        .getMany();
+      return this.userMenuRepository.find({
+        relations: { user: true, menu: true },
+      });
     } catch (e) {
       return e.message;
     }
@@ -34,12 +42,10 @@ export class UserMenueService {
 
   findOne(id: number) {
     try {
-      return this.userMenuRepository
-        .createQueryBuilder('userMenue')
-        .leftJoinAndSelect('userMenue.user', 'user')
-        .leftJoinAndSelect('userMenue.menu', 'menu')
-        .where('userMenue.id = :id', { id })
-        .getOne();
+      return this.userMenuRepository.findOne({
+        where: { id },
+        relations: { user: true, menu: true },
+      });
     } catch (e) {
       return e.message;
     }

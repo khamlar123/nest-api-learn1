@@ -21,12 +21,12 @@ export class TodosService {
 
   async findAll() {
     try {
-      const item = this.todoRepository
+      const item = await this.todoRepository
         .createQueryBuilder('todo')
         .leftJoinAndSelect('todo.category', 'category')
         .leftJoinAndSelect('todo.user', 'user')
         .getMany();
-      return await item;
+      return item;
     } catch (e) {
       return e.message;
     }
@@ -34,13 +34,13 @@ export class TodosService {
 
   async findOne(id: number) {
     try {
-      const item = this.todoRepository
+      const item = await this.todoRepository
         .createQueryBuilder('todo')
         .leftJoinAndSelect('todo.category', 'category')
         .leftJoinAndSelect('todo.user', 'user')
         .where('todo.id = :id', { id })
         .getOne();
-      return await item;
+      return item;
     } catch (e) {
       return e.message;
     }
