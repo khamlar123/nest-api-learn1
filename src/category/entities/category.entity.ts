@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Todo } from '../../todos/entities/todo.entity';
+import { Product } from 'src/products/entities/product.entity';
 
 @Entity()
 export class Category {
@@ -36,4 +37,8 @@ export class Category {
   @OneToMany(() => Todo, (todo) => todo.category)
   @JoinTable()
   todos: Todo[];
+
+  @OneToMany(() => Product, (product) => product.category)
+  @JoinTable()
+  product: Product[];
 }
