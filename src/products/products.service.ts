@@ -3,7 +3,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
-import { Like, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
@@ -34,8 +34,8 @@ export class ProductsService {
       .createQueryBuilder('prod')
       .where('prod.name LIKE :kw OR prod.desc LIKE :kw', { kw: `%${kw}%` })
       .andWhere('prod.status = :ststus', { ststus })
-      .leftJoinAndSelect('prod.category', 'category')
-      .leftJoinAndSelect('prod.packetType', 'packetType')
+      .innerJoinAndSelect('prod.category', 'category')
+      .innerJoinAndSelect('prod.packetType', 'packetType')
       .getMany();
       return findAllItem;
     } catch (e) {
