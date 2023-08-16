@@ -10,20 +10,11 @@ import { MenuModule } from './menu/menu.module';
 import { UserMenueModule } from './user-menue/user-menue.module';
 import { ProductsModule } from './products/products.module';
 import { PacketTypeModule } from './packet-type/packet-type.module';
+import { environment } from 'environment';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'khamlar123',
-      database: 'nestjs',
-      // entities: [Todo, Category, User, Menu, UserMenue],
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    TypeOrmModule.forRoot(environment),
     TodosModule,
     CategoryModule,
     UserModule,
