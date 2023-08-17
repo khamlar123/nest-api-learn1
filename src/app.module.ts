@@ -11,7 +11,6 @@ import { UserMenueModule } from './user-menue/user-menue.module';
 import { ProductsModule } from './products/products.module';
 import { PacketTypeModule } from './packet-type/packet-type.module';
 import { ConfigModule } from '@nestjs/config';
-
 @Module({
   imports: [
     ConfigModule.forRoot(),
