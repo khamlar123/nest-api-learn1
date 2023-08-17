@@ -10,11 +10,22 @@ import { MenuModule } from './menu/menu.module';
 import { UserMenueModule } from './user-menue/user-menue.module';
 import { ProductsModule } from './products/products.module';
 import { PacketTypeModule } from './packet-type/packet-type.module';
-import { environment } from 'environment';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(environment),
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: process.env.DB_TYPE as any,
+      host: process.env.PG_HOST,
+      port: parseInt(process.env.PG_PORT),
+      username: process.env.PG_USER,
+      password: process.env.PG_PASSWORD,
+      database: process.env.PG_DB,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      // autoLoadEntities: true,
+      synchronize: true,
+    }),
     TodosModule,
     CategoryModule,
     UserModule,

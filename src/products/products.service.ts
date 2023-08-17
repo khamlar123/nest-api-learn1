@@ -30,13 +30,13 @@ export class ProductsService {
       //   },
       // });
 
-      const findAllItem =  this.productRes
-      .createQueryBuilder('prod')
+      const findAllItem = this.productRes.createQueryBuilder('prod')
       .where('prod.name LIKE :kw OR prod.desc LIKE :kw', { kw: `%${kw}%` })
       .andWhere('prod.status = :ststus', { ststus })
       .innerJoinAndSelect('prod.category', 'category')
       .innerJoinAndSelect('prod.packetType', 'packetType')
       .getMany();
+      
       return findAllItem;
     } catch (e) {
       return e.message;
